@@ -1,0 +1,12 @@
+loguru
+datetime
+bson
+typing
+dataclasses
+redis
+asyncio
+playwright
+twocaptcha
+concurrent
+mongoengine
+sqlalchemy
