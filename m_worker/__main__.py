@@ -115,15 +115,7 @@ class Worker:
         ).get_attribute("data-sitekey")
         url = page.url
         try:
-            loop = asyncio.get_running_loop()
-            with futures.ThreadPoolExecutor() as pool:
-                result = await loop.run_in_executor(
-                    pool,
-                    lambda: solver.recaptcha(
-                        sitekey=sitekey,
-                        url=url
-                    )
-                )
+            result = await asyncio.to_thread(solver.recaptcha, sitekey, url)
         except Exception as e:
             worker_logger.info(e)
         else:
