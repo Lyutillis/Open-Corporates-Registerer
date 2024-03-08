@@ -1,9 +1,8 @@
-asyncio
 typing
 dataclasses
 redis
 environs
 loguru
-requests
-parsel
 bson
+2captcha-python
+asyncio

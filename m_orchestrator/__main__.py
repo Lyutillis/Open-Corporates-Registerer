@@ -63,7 +63,7 @@ class Orchestrator:
             self.results = []
 
     def run(self) -> None:
-        self.create_tasks()
+        self.create_tasks(count=2)
         self.reset_tasks_status()
 
         while True:

@@ -10,3 +10,4 @@ twocaptcha
 concurrent
 mongoengine
 sqlalchemy
+environs
