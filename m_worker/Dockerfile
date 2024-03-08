@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM --platform=linux/amd64 python:3.10.7
 LABEL maintainer="chemuranov@gmail.com"
 
 WORKDIR /app
@@ -8,16 +8,15 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update
 
-RUN apt -y install python3.9 \
-    && apt-get -y install python3-pip
-
 RUN pip install --upgrade pip
 
-RUN pip install playwright==1.41.2 && \
-    playwright install --with-deps
-
 COPY worker_requirements.txt worker_requirements.txt
+
 RUN pip install -r worker_requirements.txt
+
+RUN pip install playwright 
+
+RUN apt-get update && playwright install --with-deps chromium
 
 COPY ../ .
 

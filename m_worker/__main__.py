@@ -60,7 +60,7 @@ class Worker:
     async def start_playwright(self) -> None:
         self.playwright = await async_playwright().start()
         self.browser = await self.playwright.chromium.launch(
-            headless=False,
+            headless=True,
         )
         worker_logger.info("Started Playwright")
 
@@ -114,6 +114,7 @@ class Worker:
             "//div[@class='g-recaptcha ']"
         ).get_attribute("data-sitekey")
         url = page.url
+        worker_logger.info("Solving Captcha")
         try:
             result = await asyncio.to_thread(solver.recaptcha, sitekey, url)
         except Exception as e:
@@ -178,10 +179,11 @@ class Worker:
 
         await main_page.get_by_text("Register new account").click()
 
+        worker_logger.info("Waiting on the email")
+
         await mail_page.locator(
             "(//tr[not(@id='mr_1')]//span)[1]"
         ).click()
-
         await mail_page.locator("//*[@class='email_body']//p//a").click()
 
         return user
